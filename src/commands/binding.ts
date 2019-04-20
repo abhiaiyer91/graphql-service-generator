@@ -1,5 +1,5 @@
 import { Command, flags } from "@oclif/command";
-import { createBinding } from "../codegen";
+import { createBinding, typegen } from "../codegen";
 import { readFileSync } from "fs";
 
 export default class Binding extends Command {
@@ -31,6 +31,7 @@ export default class Binding extends Command {
       })
       .join(" ");
 
-    return createBinding(serviceName, schemasConents);
+    createBinding(serviceName, schemasConents);
+    typegen(serviceName, schemasConents);
   }
 }

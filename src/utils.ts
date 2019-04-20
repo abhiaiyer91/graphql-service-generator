@@ -23,18 +23,10 @@ export function getSchemaFromInput(schema: string): GraphQLSchema {
 /**
  * Print a GraphQL SDL from schema sdl files
  */
-export function printSchemaFromInput(input: string) {
-  const schemaPath = `./src/${input}/schema.graphql`;
-  const sdl = readFileSync(path.resolve(schemaPath), `utf-8`);
-  const shared = readFileSync(
-    path.resolve(`./src/shared/shared.graphql`),
-    `utf-8`
-  );
-  const schema = removeUnusedTypesFromSchema(
-    buildSchema([sdl, shared].join(``))
-  );
+export function printSchemaFromInput(schema: string) {
+  const builtSchema = removeUnusedTypesFromSchema(buildSchema(schema));
 
-  return printSchema(schema);
+  return printSchema(builtSchema);
 }
 
 /**
