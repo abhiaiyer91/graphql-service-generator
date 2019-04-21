@@ -19,7 +19,7 @@ const rootTypeDefs = readFileSync(__dirname + '/schema.graphql', 'utf-8')
 export const ${serviceName}TypeDefs = [rootTypeDefs].join('')
 export function create${formatName(
   serviceName
-)}Binding({ uri, serviceId, customHeaders = {} }): ${formatName(
+)}Binding({ uri, serviceId, customHeaders = {} }: { uri: string, serviceId: string, customHeaders: Record<string, any> }): ${formatName(
   serviceName
 )}Binding {
     const http = new HttpLink({
