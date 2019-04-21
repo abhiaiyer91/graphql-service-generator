@@ -87,6 +87,7 @@ export class TSGenerator extends TypescriptGenerator {
               ![
                 `Boolean`,
                 `String`,
+                `Float`,
                 `ID`,
                 `JSON`,
                 `Int`,
