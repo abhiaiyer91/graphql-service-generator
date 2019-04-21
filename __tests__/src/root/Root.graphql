@@ -1,0 +1,19 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  hello: String
+  user: User
+  userById(id: ID!): User
+}
+
+type Mutation {
+  createFoo: String
+  createUser: User
+}
+
+type User {
+  id: ID!
+}
