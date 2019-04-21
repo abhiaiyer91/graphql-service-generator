@@ -17,6 +17,7 @@
     "graphql-codegen-typescript-server": "^0.16.1",
     "lodash": "^4.17.11",
     "merge-graphql-schemas": "^1.5.8",
+    "rimraf": "^2.6.3",
     "tslib": "^1"
   },
   "bin": {

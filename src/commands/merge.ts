@@ -32,7 +32,11 @@ export default class Merge extends Command {
 
     const typesArray = flatten(
       schemas.map(schemaPath => {
-        return fileLoader(path.resolve(schemaPath + "/**/*.graphql"));
+        return fileLoader(path.resolve(schemaPath + "/**/*.graphql"), {
+          globOptions: {
+            ignore: '/**/Root.graphql'
+          }
+        });
       })
     );
 
