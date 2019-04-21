@@ -12,14 +12,15 @@ interface TypeGen {
 export function typegen({ outputPath, serviceName, schema }: TypeGen) {
   const builtSchema = printSchemaFromInput(schema);
   const outputBinding = path.resolve(
-    `./src/${serviceName}/generatedSchema.graphql`
+    outputPath,
+    'generatedSchema.graphql'
   );
 
   fs.writeFileSync(outputBinding, builtSchema, `utf-8`);
 
   const config = {
     overwrite: true,
-    schema: [`./src/${serviceName}/generatedSchema.graphql`],
+    schema: outputBinding,
     generates: {
       [path.resolve(outputPath, "types.ts")]: {
         plugins: [
