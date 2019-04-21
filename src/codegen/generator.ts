@@ -107,7 +107,7 @@ export class TSGenerator extends TypescriptGenerator {
      */    
     import { makeBindingClass, Options } from 'graphql-binding'
     import { get } from 'lodash'
-    import * as fetch from 'isomorphic-fetch'
+    import fetch from 'isomorphic-fetch'
     import { HttpLink } from 'apollo-link-http'
     import { setContext } from 'apollo-link-context'
     import { GraphQLResolveInfo, GraphQLSchema } from 'graphql'
