@@ -1,5 +1,7 @@
 type Query {
   user: User
+
+  userById(id: ID!): User
 }
 
 type Mutation {

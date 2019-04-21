@@ -3,7 +3,13 @@ import * as path from "path";
 import * as fs from "fs";
 import { printSchemaFromInput } from "../utils";
 
-export function typegen(serviceName: string, schema: string) {
+interface TypeGen {
+  outputPath: string;
+  serviceName: string;
+  schema: string;
+}
+
+export function typegen({ outputPath, serviceName, schema }: TypeGen) {
   const builtSchema = printSchemaFromInput(schema);
   const outputBinding = path.resolve(
     `./src/${serviceName}/generatedSchema.graphql`
@@ -15,7 +21,7 @@ export function typegen(serviceName: string, schema: string) {
     overwrite: true,
     schema: [`./src/${serviceName}/generatedSchema.graphql`],
     generates: {
-      [`src/${serviceName}/types.ts`]: {
+      [path.resolve(outputPath, "types.ts")]: {
         plugins: [
           { add: `// THIS IS A GENERATED FILE` },
           `typescript-common`,

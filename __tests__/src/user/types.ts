@@ -7,6 +7,8 @@ export type Maybe<T> = T | null;
 
 export interface Query {
   user?: Maybe<User>;
+
+  userById?: Maybe<User>;
 }
 
 export interface User {
@@ -20,6 +22,10 @@ export interface Mutation {
 // ====================================================
 // Arguments
 // ====================================================
+
+export interface UserByIdQueryArgs {
+  id: string;
+}
 
 import { GraphQLResolveInfo } from "graphql";
 
@@ -75,6 +81,8 @@ export type DirectiveResolverFn<TResult, TArgs = {}, TContext = {}> = (
 export namespace QueryResolvers {
   export interface Resolvers<Context = {}, TypeParent = {}> {
     user?: UserResolver<Maybe<User>, TypeParent, Context>;
+
+    userById?: UserByIdResolver<Maybe<User>, TypeParent, Context>;
   }
 
   export type UserResolver<
@@ -82,6 +90,14 @@ export namespace QueryResolvers {
     Parent = {},
     Context = {}
   > = Resolver<R, Parent, Context>;
+  export type UserByIdResolver<
+    R = Maybe<User>,
+    Parent = {},
+    Context = {}
+  > = Resolver<R, Parent, Context, UserByIdArgs>;
+  export interface UserByIdArgs {
+    id: string;
+  }
 }
 
 export namespace UserResolvers {

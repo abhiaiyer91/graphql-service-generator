@@ -12,6 +12,10 @@ export default class Binding extends Command {
     schemaPaths: flags.string({
       char: "s",
       description: "Paths to GraphQL Schemas, separated by a comma"
+    }),
+    output: flags.string({
+      char: "o",
+      description: "Output directory for generated contents"
     })
   };
 
@@ -31,7 +35,13 @@ export default class Binding extends Command {
       })
       .join(" ");
 
-    createBinding(serviceName, schemasConents);
-    typegen(serviceName, schemasConents);
+    const outputPath = flags && flags.output;
+
+    if (!outputPath) {
+      throw new Error("Must specify output directory");
+    }
+
+    createBinding({ serviceName, schema: schemasConents, outputPath });
+    typegen({ serviceName, schema: schemasConents, outputPath });
   }
 }

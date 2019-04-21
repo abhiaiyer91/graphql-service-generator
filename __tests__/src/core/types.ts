@@ -6,16 +6,26 @@ export type Maybe<T> = T | null;
 // ====================================================
 
 export interface Query {
-  hello?: Maybe<string>;
+  user?: Maybe<User>;
+
+  userById?: Maybe<User>;
+}
+
+export interface User {
+  id: string;
 }
 
 export interface Mutation {
-  createFoo?: Maybe<string>;
+  createUser?: Maybe<User>;
 }
 
 // ====================================================
 // Arguments
 // ====================================================
+
+export interface UserByIdQueryArgs {
+  id: string;
+}
 
 import { GraphQLResolveInfo } from "graphql";
 
@@ -70,23 +80,45 @@ export type DirectiveResolverFn<TResult, TArgs = {}, TContext = {}> = (
 
 export namespace QueryResolvers {
   export interface Resolvers<Context = {}, TypeParent = {}> {
-    hello?: HelloResolver<Maybe<string>, TypeParent, Context>;
+    user?: UserResolver<Maybe<User>, TypeParent, Context>;
+
+    userById?: UserByIdResolver<Maybe<User>, TypeParent, Context>;
   }
 
-  export type HelloResolver<
-    R = Maybe<string>,
+  export type UserResolver<
+    R = Maybe<User>,
     Parent = {},
     Context = {}
   > = Resolver<R, Parent, Context>;
+  export type UserByIdResolver<
+    R = Maybe<User>,
+    Parent = {},
+    Context = {}
+  > = Resolver<R, Parent, Context, UserByIdArgs>;
+  export interface UserByIdArgs {
+    id: string;
+  }
+}
+
+export namespace UserResolvers {
+  export interface Resolvers<Context = {}, TypeParent = User> {
+    id?: IdResolver<string, TypeParent, Context>;
+  }
+
+  export type IdResolver<R = string, Parent = User, Context = {}> = Resolver<
+    R,
+    Parent,
+    Context
+  >;
 }
 
 export namespace MutationResolvers {
   export interface Resolvers<Context = {}, TypeParent = {}> {
-    createFoo?: CreateFooResolver<Maybe<string>, TypeParent, Context>;
+    createUser?: CreateUserResolver<Maybe<User>, TypeParent, Context>;
   }
 
-  export type CreateFooResolver<
-    R = Maybe<string>,
+  export type CreateUserResolver<
+    R = Maybe<User>,
     Parent = {},
     Context = {}
   > = Resolver<R, Parent, Context>;
@@ -127,6 +159,7 @@ export interface DeprecatedDirectiveArgs {
 
 export interface IResolvers<Context = {}> {
   Query?: QueryResolvers.Resolvers<Context>;
+  User?: UserResolvers.Resolvers<Context>;
   Mutation?: MutationResolvers.Resolvers<Context>;
 }
 

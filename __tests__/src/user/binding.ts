@@ -17,7 +17,8 @@
     
     
 export interface UserQuery {
-    user: <T = User | null>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
+    user: <T = User | null>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    userById: <T = User | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
   }
 export interface UserMutation {
     createUser: <T = User | null>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
